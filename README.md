@@ -16,17 +16,22 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 - Python 2.7.5
 - Matlab 2017b
 
+## Dataset
+These datasets are the same as other paper provided. Readers can directly use them or download them from here:
+[BSDS100](https://drive.google.com/open?id=13yF988p3SfFEFsBxe6fqbmm7pHaCAndY), 
+[BSDS200](https://drive.google.com/open?id=1DH-LWAtmoTC58STZ6wnp-wiNJdtn__D8), 
+[General-100](https://drive.google.com/open?id=1ZZbVnycyu6rG3_Lfd4zEqyFTSGYeWIru), 
+[Set5](https://drive.google.com/open?id=1VqTnAaMOwaHwlUtf1-JodObHJx5efLAC), 
+[Set14](https://drive.google.com/open?id=17iz-E2m-9DuXRs7JnP6BUKUdCa_L1B-e), 
+[T91](https://drive.google.com/open?id=1Q_7dDC6tfzzlygcmo_nSWEH_s8VMysdT), 
+[Train_291](https://drive.google.com/open?id=1diz4wIG722KKwb9U3TLxHSKJ4oI2PclV), 
+[Urban100](https://drive.google.com/open?id=1xjD8Rj_8werEkNQuXKdNcrF9VWz6wp7l), and 
+[DIV2K](https://data.vision.ee.ethz.ch/cvl/DIV2K/).
+
 ## Train
 
 1. Copy the 'train' directory to 'Caffe_ROOT/examples/', and rename the directory to 'SRDenseNet'.
-2. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/file/d/13yF988p3SfFEFsBxe6fqbmm7pHaCAndY/view?usp=sharing
-https://drive.google.com/file/d/1Q_7dDC6tfzzlygcmo_nSWEH_s8VMysdT/view?usp=sharing
-https://drive.google.com/file/d/1diz4wIG722KKwb9U3TLxHSKJ4oI2PclV/view?usp=sharing
-https://drive.google.com/file/d/17iz-E2m-9DuXRs7JnP6BUKUdCa_L1B-e/view?usp=sharing
-https://drive.google.com/file/d/1DH-LWAtmoTC58STZ6wnp-wiNJdtn__D8/view?usp=sharing
-https://drive.google.com/file/d/1ZZbVnycyu6rG3_Lfd4zEqyFTSGYeWIru/view?usp=sharing
-https://drive.google.com/file/d/1VqTnAaMOwaHwlUtf1-JodObHJx5efLAC/view?usp=sharing
-https://drive.google.com/file/d/1xjD8Rj_8werEkNQuXKdNcrF9VWz6wp7l/view?usp=sharing))
+2. Prepare datasets into 'data' directory.
 3. (optional) run 'data_aug.m' in Matlab for data augmentation; e.g., data_aug('data/BSDS200'), which will generates a new directory 'BSDS-200-aug'.
 4. Run 'generate_train.m' and 'generate_test.m' in Matlab to generate 'train.h5' and 'test.h5'. (choose one or more datasets in advance)
 5. (optional) Modify the parameters in 'create_SRDenseNet.py'. 
@@ -54,14 +59,7 @@ https://drive.google.com/file/d/1xjD8Rj_8werEkNQuXKdNcrF9VWz6wp7l/view?usp=shari
 
 ## Test
 
-1. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/file/d/13yF988p3SfFEFsBxe6fqbmm7pHaCAndY/view?usp=sharing
-https://drive.google.com/file/d/1Q_7dDC6tfzzlygcmo_nSWEH_s8VMysdT/view?usp=sharing
-https://drive.google.com/file/d/1diz4wIG722KKwb9U3TLxHSKJ4oI2PclV/view?usp=sharing
-https://drive.google.com/file/d/17iz-E2m-9DuXRs7JnP6BUKUdCa_L1B-e/view?usp=sharing
-https://drive.google.com/file/d/1DH-LWAtmoTC58STZ6wnp-wiNJdtn__D8/view?usp=sharing
-https://drive.google.com/file/d/1ZZbVnycyu6rG3_Lfd4zEqyFTSGYeWIru/view?usp=sharing
-https://drive.google.com/file/d/1VqTnAaMOwaHwlUtf1-JodObHJx5efLAC/view?usp=sharing
-https://drive.google.com/file/d/1xjD8Rj_8werEkNQuXKdNcrF9VWz6wp7l/view?usp=sharing))
+1. Prepare datasets into 'data' directory.
 2. Copy 'test_net.prototxt' from training directory to 'test' directory.
 3. Copy '\*.caffemodel' from training directory to 'test/model' directory.
 4. Modify some paths in 'test_SRDenseNet.m' if necessary.
