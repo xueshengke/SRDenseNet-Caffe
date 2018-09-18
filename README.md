@@ -11,7 +11,7 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 - Memory: 251.4 GB
 - GPU: NVIDIA Tesla P4, 8 GB
 
-### Software
+## Software
 - Caffe (matcaffe interface required)
 - Python 2.7.5
 - Matlab 2017b
@@ -19,7 +19,14 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 ## Train
 
 1. Copy the 'train' directory to 'Caffe_ROOT/examples/', and rename the directory to 'SRDenseNet'.
-2. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/open?id=16SuNJXypTNv7AmOVDAvb_5H6Nqufp42C))
+2. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/file/d/13yF988p3SfFEFsBxe6fqbmm7pHaCAndY/view?usp=sharing
+https://drive.google.com/file/d/1Q_7dDC6tfzzlygcmo_nSWEH_s8VMysdT/view?usp=sharing
+https://drive.google.com/file/d/1diz4wIG722KKwb9U3TLxHSKJ4oI2PclV/view?usp=sharing
+https://drive.google.com/file/d/17iz-E2m-9DuXRs7JnP6BUKUdCa_L1B-e/view?usp=sharing
+https://drive.google.com/file/d/1DH-LWAtmoTC58STZ6wnp-wiNJdtn__D8/view?usp=sharing
+https://drive.google.com/file/d/1ZZbVnycyu6rG3_Lfd4zEqyFTSGYeWIru/view?usp=sharing
+https://drive.google.com/file/d/1VqTnAaMOwaHwlUtf1-JodObHJx5efLAC/view?usp=sharing
+https://drive.google.com/file/d/1xjD8Rj_8werEkNQuXKdNcrF9VWz6wp7l/view?usp=sharing))
 3. (optional) run 'data_aug.m' in Matlab for data augmentation; e.g., data_aug('data/BSDS200'), which will generates a new directory 'BSDS-200-aug'.
 4. Run 'generate_train.m' and 'generate_test.m' in Matlab to generate 'train.h5' and 'test.h5'. (choose one or more datasets in advance)
 5. (optional) Modify the parameters in 'create_SRDenseNet.py'. 
@@ -28,7 +35,7 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 8. Run in command line './examples/SRDenseNet/train.sh' at Caffe_ROOT path.
 9. Waiting for the training procedure completed.
 
-### Parameters for training (saved in solver.prototxt)
+## Parameters for training (saved in solver.prototxt)
 - net: "examples/SRDenseNet/train_net.prototxt"
 - test iteration: 100
 - test interval: 100
@@ -47,7 +54,14 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 
 ## Test
 
-1. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/open?id=16SuNJXypTNv7AmOVDAvb_5H6Nqufp42C))
+1. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/file/d/13yF988p3SfFEFsBxe6fqbmm7pHaCAndY/view?usp=sharing
+https://drive.google.com/file/d/1Q_7dDC6tfzzlygcmo_nSWEH_s8VMysdT/view?usp=sharing
+https://drive.google.com/file/d/1diz4wIG722KKwb9U3TLxHSKJ4oI2PclV/view?usp=sharing
+https://drive.google.com/file/d/17iz-E2m-9DuXRs7JnP6BUKUdCa_L1B-e/view?usp=sharing
+https://drive.google.com/file/d/1DH-LWAtmoTC58STZ6wnp-wiNJdtn__D8/view?usp=sharing
+https://drive.google.com/file/d/1ZZbVnycyu6rG3_Lfd4zEqyFTSGYeWIru/view?usp=sharing
+https://drive.google.com/file/d/1VqTnAaMOwaHwlUtf1-JodObHJx5efLAC/view?usp=sharing
+https://drive.google.com/file/d/1xjD8Rj_8werEkNQuXKdNcrF9VWz6wp7l/view?usp=sharing))
 2. Copy 'test_net.prototxt' from training directory to 'test' directory.
 3. Copy '\*.caffemodel' from training directory to 'test/model' directory.
 4. Modify some paths in 'test_SRDenseNet.m' if necessary.
