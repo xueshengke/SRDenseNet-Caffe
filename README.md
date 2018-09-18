@@ -19,7 +19,7 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 ## Train
 
 1. Copy the 'train' directory to 'Caffe_ROOT/examples/', and rename the directory to 'SRDenseNet'.
-2. Prepare datasets into 'data' directory. (copy from other place or download from [link]())
+2. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/open?id=16SuNJXypTNv7AmOVDAvb_5H6Nqufp42C))
 3. (optional) run 'data_aug.m' in Matlab for data augmentation; e.g., data_aug('data/BSDS200'), which will generates a new directory 'BSDS-200-aug'.
 4. Run 'generate_train.m' and 'generate_test.m' in Matlab to generate 'train.h5' and 'test.h5'. (choose one or more datasets in advance)
 5. (optional) Modify the parameters in 'create_SRDenseNet.py'. 
@@ -47,7 +47,7 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 
 ## Test
 
-1. Prepare datasets into 'data' directory. (copy from other place or download from [link]())
+1. Prepare datasets into 'data' directory. (copy from other place or download from [link](https://drive.google.com/open?id=16SuNJXypTNv7AmOVDAvb_5H6Nqufp42C))
 2. Copy 'test_net.prototxt' from training directory to 'test' directory.
 3. Copy '\*.caffemodel' from training directory to 'test/model' directory.
 4. Modify some paths in 'test_SRDenseNet.m' if necessary.
@@ -71,7 +71,7 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 - Deconvolution layer: kernel=4, stride=2, pad=1
 - Loss: Euclidean (L2)
 
-**Readers can use 'Netscope' to visulazie the network architecture**
+**Readers can use 'Netscope' to visualize the network architecture**
 
 ## Performance
 
@@ -86,7 +86,7 @@ Performance in terms of PSNR/SSIM on datasets Set5, Set14, BSD100, and Urban100
 | BSDS100   | 25.96/0.6674  | **26.91/0.7120** |
 | Urban100	| 23.14/0.6570	| **24.43/0.7194** |
 
-Our results are not as good as those presented in paper. Hence, our code needs further improvement.
+**Note:** our results are not as good as those presented in paper. Hence, our code needs further improvement.
 
 If you have any suggestion or question, please do not hesitate to contact me.
 
