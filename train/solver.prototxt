@@ -1,0 +1,36 @@
+# train and test net definition 
+net: "examples/SRDenseNet/train_net.prototxt"
+
+test_iter: 100
+# carry out testing interval
+test_interval: 100
+
+# base learning rate
+base_lr: 1e-4
+
+# step policy: base_lr * gamma ^ (floor(iter / stepsize))
+lr_policy: "step"
+gamma: 0.2
+stepsize: 3000
+
+momentum: 0.9
+
+# weight decay coefficient
+weight_decay: 1e-04
+
+# display interval
+display: 100
+
+# maximum number of iterations
+max_iter: 10000
+
+# snapshot intermediate results
+snapshot: 1000
+snapshot_prefix: 'examples/SRDenseNet/model/snapshot'
+
+# run on GPU or CPU
+solver_mode: GPU
+
+# optimization method: SGD, AdaDelta, AdaGrad, Adam, Nesterov, and RMSProp
+type: "Adam"
+
