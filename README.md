@@ -1,60 +1,83 @@
 # SRDenseNet (Caffe)
-This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Image super-resolution using dense skip connections. ICCV, p.4809-4817."
-(http://openaccess.thecvf.com/content_ICCV_2017/papers/Tong_Image_Super-Resolution_Using_ICCV_2017_paper.pdf)
+
+This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Image super-resolution using dense skip connections. ICCV, p.4809-4817." [PDF](http://openaccess.thecvf.com/content_ICCV_2017/papers/Tong_Image_Super-Resolution_Using_ICCV_2017_paper.pdf)
+
+![](SRDenseNet.jpg)
+
+## Environment
+
+- OS: CentOS 7 Linux kernel 3.10.0-514.el7.x86_64
+- CPU: Intel Xeon(R) CPU E5-2667 v4 @ 3.20GHz x 32
+- Memory: 251.4 GB
+- GPU: NVIDIA Tesla P4, 8 GB
+
+### Software
+- Caffe (matcaffe interface required)
+- Python 2.7.5
+- Matlab 2017b
 
 ## Train
-```
-usage: main.py [-h] [--batchSize BATCHSIZE] [--nEpochs NEPOCHS] [--lr LR]
-               [--step STEP] [--cuda] [--resume RESUME]
-               [--start-epoch START_EPOCH] [--threads THREADS]
-               [--pretrained PRETRAINED]
 
-Pytorch SRDenseNet train
+1. Copy the 'train' directory to 'Caffe_ROOT/examples/', and rename the directory to 'SRDenseNet'.
+2. Prepare datasets into 'data' directory. (copy from other place or download from [link]())
+3. (optional) run 'data_aug.m' in Matlab for data augmentation; e.g., data_aug('data/BSDS200'), which will generates a new directory 'BSDS-200-aug'.
+4. Run 'generate_train.m' and 'generate_test.m' in Matlab to generate 'train.h5' and 'test.h5'. (choose one or more datasets in advance)
+5. (optional) Modify the parameters in 'create_SRDenseNet.py'. 
+6. Run in command line: 'python create_SRDenseNet.py'. It will regenerate 'train_net.prototxt' and 'test_net.prototxt'.
+7. (optional) modify the parametes in 'solver.prototxt'.
+8. Run in command line './examples/SRDenseNet/train.sh' at Caffe_ROOT path.
+9. Waiting for the training procedure completed.
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --batchSize BATCHSIZE
-                        training batch size
-  --nEpochs NEPOCHS     number of epochs to train for
-  --lr LR               Learning Rate. Default=1e-4
-  --step STEP           Sets the learning rate to the initial LR decayed by
-                        10 every n epochs, Default: n=30
-  --cuda                Use cuda?
-  --resume RESUME       Path to checkpoint (default: none)
-  --start-epoch START_EPOCH
-                        Manual epoch number (useful on restarts)
-  --threads THREADS     Number of threads for data loader to use, Default: 1
-  --pretrained PRETRAINED
-                        path to pretrained model (default: none)
+### Parameters for training (saved in solver.prototxt)
+- net: "examples/SRDenseNet/train_net.prototxt"
+- test iteration: 100
+- test interval: 100
+- base learning rate: 1e-4
+- learning policy: "step" 
+- gamma: 0.2
+- stepsize: 3000
+- momentum: 0.9
+- weight decay: 1e-4
+- display interval: 100
+- maximum iteration: 10000
+- snapshot: 1000
+- snapshot_prefix: "examples/SRDenseNet/model/snapshot"
+- solver mode: GPU
+- optimization method: "Adam"
 
-```
 ## Test
-```
-usage: test.py [-h] [--cuda] [--model MODEL] [--imageset IMAGESET] [--scale SCALE]
 
-Pytorch SRDenseNet Test
+1. Prepare datasets into 'data' directory. (copy from other place or download from [link]())
+2. Copy 'test_net.prototxt' from training directory to 'test' directory.
+3. Copy '\*.caffemodel' from training directory to 'test/model' directory.
+4. Modify some paths in 'test_SRDenseNet.m' if necessary.
+5. Run 'test_SRDenseNet.m' in Matlab.
+6. Metrics will be printed and reconstrcuted images will be saved into 'result' directory.
 
-optional arguments:
-  -h, --help     show this help message and exit
-  --cuda         use cuda?
-  --model MODEL  model path
-  --imageset IMAGESET  imageset name
-  --scale SCALE  scale factor, Default: 4
-```
+## Network architecture
 
-### Prepare Training dataset
- The training data is generated with Matlab Bicubic Interplotation, please refer [Code for Data Generation](https://github.com/wxywhu/SRDenseNet-pytorch/tree/master/data) for creating training files.
+- scale: 4
+- batch size: 32 (train), 2 (test)
+- number of feature maps of the first convolutional layer: 8
+- number of blocks: 8
+- number of convolutional layers in one block: 8
+- growth rate: 16
+- number of feature maps of the bottleneck layer: 256
+- dropout: 0.0
 
-### Prepare Test dataset
- The test imageset is generated with Matlab Bicubic Interplotation, please refer [Code for test](https://github.com/wxywhu/SRDenseNet-pytorch/tree/master/TestSet) for creating test imageset.
+- Each convolution or deconvolution layer is followed by an ReLU layer, except the final reconstruction layer
+- Convolution layer: kernel=3, stride=1, pad=1
+- Bottoleneck layer: kernel=1, stride=1, pad=0
+- Deconvolution layer: kernel=4, stride=2, pad=1
+- Loss: Euclidean (L2)
+
+**Readers can use 'Netscope' to visulazie the network architecture**
+
+## Performance
+
+We provide a pretrained SRDenseNet x4 model trained on BSDS200, T91, and Train_291 datasets. All images are cropped to 100x100 subimages witn non-overlap. Following previous methods, super-resolution is applied only in the luminance channel in YCbCr space.
  
-### Performance
- We provide a pretrained .[SRDenseNet x4 model](https://pan.baidu.com/s/1kkuS4sEDe-KyLBKpkKzXXg) trained on DIV2K images from [DIV2K_train_HR] (http://data.vision.ee.ethz.ch/cvl/DIV2K/DIV2K_train_HR.zip).While I use the SR_DenseNet to train this model, so the performance is test based on this code.
- 
- Non-overlapping sub-images with a size of 96 ¡Á 96 were cropped in the HR space.
- Other settings is the same as the original paper
- 
- - Performance in terms of PSNR/SSIM on datasets Set5, Set14, BSD100, and Urban100
+Performance in terms of PSNR/SSIM on datasets Set5, Set14, BSD100, and Urban100
   
 | DataSet/Method  | Bicubic interpolation | SRDenseNet |
 | --------- |:-------------:|:----------------:|
@@ -63,12 +86,16 @@ optional arguments:
 | BSDS100   | 25.96/0.6674  | **26.91/0.7120** |
 | Urban100	| 23.14/0.6570	| **24.43/0.7194** |
 
-Our results are not as good as those presented in paper. Our code needs further improvement.
+Our results are not as good as those presented in paper. Hence, our code needs further improvement.
 
 If you have any suggestion or question, please do not hesitate to contact me.
 
 ## Contact 
+
 Ph.D. candidate, Shengke Xue
+
 College of Information Science and Electronic Engineering
+
 Zhejiang University, Hangzhou, P.R. China
-Email: xueshengke@zju.edu.cn; xueshengke1993@gmail.com
+
+Email: xueshengke@zju.edu.cn, xueshengke1993@gmail.com
