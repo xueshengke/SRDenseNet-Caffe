@@ -8,11 +8,11 @@ while ~feof(fidin)
     tline = fgetl(fidin);
     i = i + 1;
     newtline{i} = tline;
-    if i == 4
+    if i == 9
         newtline{i} = [tline(1:11) num2str(channel)];
-    elseif i == 5
+    elseif i == 10
         newtline{i} = [tline(1:11) num2str(wid)];
-    elseif i == 6
+    elseif i == 11
         newtline{i} = [tline(1:11) num2str(hei)];
     end
 end
