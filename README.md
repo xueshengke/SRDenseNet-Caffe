@@ -12,6 +12,7 @@ This is the implementation of paper: "T. Tong, G. Li, X. Liu, et al., 2017. Imag
 - GPU: NVIDIA Tesla P4, 8 GB
 
 ## Software
+- Cuda 8.0 (Cudnn installed)
 - Caffe (matcaffe interface required)
 - Python 2.7.5
 - Matlab 2017b
