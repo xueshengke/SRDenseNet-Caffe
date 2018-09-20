@@ -20,13 +20,13 @@ for i = 1 : length(filepaths)
     [add, im_name, type] = fileparts(filepaths(i).name);
     image = imread(fullfile(folder, filename));
     
-    for angle = 0: 90 :270
-        im_rot = rot90(image, angle);
-        imwrite(im_rot, [save_path '/' im_name, '_rot' num2str(angle) '.bmp']);
+    for angle = 0 : 1 : 3
+        im_rot = rot90(image, angle); % 90 degree counterclockwise rotation
+        imwrite(im_rot, [save_path '/' im_name, '_rot' num2str(angle*90) '.bmp']);
         
-        for scale = 0.5 : 0.1 :0.9
+        for scale = 0.5 : 0.2 :0.9
             im_down = imresize(im_rot, scale, 'bicubic');
-            imwrite(im_down, [save_path '/' im_name, '_rot' num2str(angle) '_s' num2str(scale*10) '.bmp']);
+            imwrite(im_down, [save_path '/' im_name, '_rot' num2str(angle*90) '_s' num2str(scale*10) '.bmp']);
         end
         
     end
