@@ -44,16 +44,16 @@ These datasets are the same as other paper provided. Readers can directly use th
 
 ## Parameters for training (saved in solver.prototxt)
 - net: "examples/SRDenseNet/train_net.prototxt"
-- test iteration: 100
+- test iteration: 1000
 - test interval: 100
 - base learning rate: 1e-4
 - learning policy: "step" 
-- gamma: 0.2
-- stepsize: 3000
+- gamma: 0.5
+- stepsize: 10000
 - momentum: 0.9
 - weight decay: 1e-4
 - display interval: 100
-- maximum iteration: 10000
+- maximum iteration: 100000
 - snapshot: 1000
 - snapshot_prefix: "examples/SRDenseNet/model/snapshot"
 - solver mode: GPU
@@ -95,10 +95,10 @@ Performance in terms of PSNR/SSIM on datasets Set5, Set14, BSD100, and Urban100
   
 | DataSet/Method  | Bicubic interpolation | SRDenseNet |
 | --------- |:-------------:|:----------------:|
-| Set5      | 28.42/0.8103  | **30.44/0.8620** |
-| Set14     | 26.00/0.7018  | **27.48/0.7518** |
-| BSDS100   | 25.96/0.6674  | **26.91/0.7120** |
-| Urban100	| 23.14/0.6570	| **24.43/0.7194** |
+| Set5      | 28.42/0.8103  | **31.28/0.8807** |
+| Set14     | 26.00/0.7018  | **27.97/0.7658** |
+| BSDS100   | 25.96/0.6674  | **27.23/0.7233** |
+| Urban100	| 23.14/0.6570	| **25.04/0.7485** |
 
 **Note:** our results are not as good as those presented in paper. Hence, our code needs further improvement.
 

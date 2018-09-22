@@ -1,7 +1,7 @@
 # train and test net definition 
 net: "examples/SRDenseNet/train_net.prototxt"
 
-test_iter: 100
+test_iter: 1000
 # carry out testing interval
 test_interval: 100
 
@@ -10,8 +10,8 @@ base_lr: 1e-4
 
 # step policy: base_lr * gamma ^ (floor(iter / stepsize))
 lr_policy: "step"
-gamma: 0.2
-stepsize: 3000
+gamma: 0.5
+stepsize: 10000
 
 momentum: 0.9
 
@@ -22,7 +22,7 @@ weight_decay: 1e-04
 display: 100
 
 # maximum number of iterations
-max_iter: 10000
+max_iter: 100000
 
 # snapshot intermediate results
 snapshot: 1000

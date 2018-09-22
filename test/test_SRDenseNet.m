@@ -17,7 +17,7 @@ gpu_id = 0;
 caffe.set_mode_gpu(); % for GPU
 caffe.set_device(gpu_id);
 
-weights = 'model/snapshot_iter_10000.caffemodel';
+weights = 'model/snapshot_iter_100000.caffemodel';
 model = 'test_net.prototxt';
 scale = 4;
 data_set_id = 1;     % index to select one dataset for test
@@ -39,7 +39,7 @@ dic = dir(fullfile(path, data_set{data_set_id, 2}));
 
 num_file = length(dic);
     
-folder_result = fullfile(save_path, test_set, ['x', num2str(scale)]);
+folder_result = fullfile(save_path, test_set, ['x' num2str(scale)]);
 
 if ~exist(folder_result,'file')
     mkdir(folder_result);
@@ -88,16 +88,18 @@ for i = 1 : length(dic)
     im_y_h = zeros(hei, wid);
     for x = 1 : patch : hei_low
         for y = 1 : patch : wid_low
-            subimage = im_y_low(x : min(x+patch-1, hei_low), y : min(y+patch-1, wid_low));
+            subimage = im_y_low(max(1, x-1) : min(x+patch, hei_low), ...
+                                max(1, y-1) : min(y+patch, wid_low));
             output = SRDenseNet(model, weights, subimage);
             [sh, sw] = size(output);
-            sx = scale * (x-1) + 1;
-            sy = scale * (y-1) + 1;
-            im_y_h(sx : sx + sh - 1, sy : sy + sw - 1) = output;
+            sx = max(scale * (x-1) + 1, scale + 1);
+            sy = max(scale * (y-1) + 1, scale + 1);
+            im_y_h(sx : sx+sh-2*scale-1, sy : sy+sw-2*scale-1) = ...
+                shave(output, [scale, scale]);
         end
     end
     
-    %% remove border
+    %% remove outside border
     im_y_h1 = shave(uint8(single(im_y_h) * 255), [scale, scale]);
     im_y_b1 = shave(uint8(single(im_y_b) * 255), [scale, scale]);
     im_y_gnd1 = shave(uint8(single(im_y_gnd) * 255), [scale, scale]);
@@ -124,7 +126,7 @@ for i = 1 : length(dic)
     im_gnd_set{i} = im_gnd1;
 
     %% save image files
-    imwrite(im_h1, fullfile(folder_result, [image_name, '_x', num2str(scale), '.png']));
+    imwrite(im_h1, fullfile(folder_result, [image_name '_x' num2str(scale) '.png']));
 
     %% compute PSNR, SSIM, and IFC
     bicubic_set(i, 1)    = compute_psnr(im_y_gnd1, im_y_b1);
@@ -141,9 +143,9 @@ avg_SRDenseNet = mean(srdensenet_set);
 PSNR_set = srdensenet_set(:,1);
 SSIM_set = srdensenet_set(:,2);
 IFC_set  = srdensenet_set(:,3);
-save(fullfile(folder_result, ['PSNR_', test_set, '_x', num2str(scale), '.mat']), 'PSNR_set');
-save(fullfile(folder_result, ['SSIM_', test_set, '_x', num2str(scale), '.mat']), 'SSIM_set');
-save(fullfile(folder_result, ['IFC_', test_set, '_x', num2str(scale), '.mat']), 'IFC_set');
+save(fullfile(folder_result, ['PSNR_' test_set '_x' num2str(scale) '.mat']), 'PSNR_set');
+save(fullfile(folder_result, ['SSIM_' test_set '_x' num2str(scale) '.mat']), 'SSIM_set');
+save(fullfile(folder_result, ['IFC_' test_set '_x' num2str(scale) '.mat']), 'IFC_set');
 
 %% display results of Bicubic and SRDenseNet
 disp('--- Bicubic');

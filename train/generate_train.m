@@ -2,10 +2,10 @@ clear; close all;
 addpath util;
 %% settings
 folder = {
-    'data/BSDS200';
-%     'data/BSDS200-aug';
-%     'data/General-100-aug'; 
-%     'data/T91-aug';
+%     'data/BSDS200';
+    'data/BSDS200-aug';
+    'data/General-100-aug'; 
+    'data/T91-aug';
 %     'data/Train_291';
 %     '/ext/xueshengke/DIV2K_train_HR';
 %     '/ext/xueshengke/DIV2K_valid_HR';
